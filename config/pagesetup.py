@@ -261,10 +261,7 @@ def popover_menu(varPageNumber: int):
         st.page_link(page=get_pageconfig_item(varPageNumber=3, varPageConfigType="paths"), label=get_pageconfig_item(varPageNumber=3, varPageConfigType="subtitles"), disabled=(varPageNumber == 3))
         st.page_link(page=get_pageconfig_item(varPageNumber=4, varPageConfigType="paths"), label=get_pageconfig_item(varPageNumber=4, varPageConfigType="subtitles"), disabled=(varPageNumber == 4))
         st.page_link(page=get_pageconfig_item(varPageNumber=5, varPageConfigType="paths"), label=get_pageconfig_item(varPageNumber=5, varPageConfigType="subtitles"), disabled=(varPageNumber == 5))
-        st.page_link(page=get_pageconfig_item(varPageNumber=6, varPageConfigType="paths"), label=get_pageconfig_item(varPageNumber=6, varPageConfigType="subtitles"), disabled=(varPageNumber == 6))
-        st.page_link(page=get_pageconfig_item(varPageNumber=7, varPageConfigType="paths"), label=get_pageconfig_item(varPageNumber=7, varPageConfigType="subtitles"), disabled=(varPageNumber == 7))
-        st.page_link(page=get_pageconfig_item(varPageNumber=8, varPageConfigType="paths"), label=get_pageconfig_item(varPageNumber=8, varPageConfigType="subtitles"), disabled=(varPageNumber == 8))
-
+        
 def get_pageconfig_title_with_popmenu(varPageNumber: int, varDiv: bool=True):
     headercontainer = st.container(border=False)
     with headercontainer:
@@ -445,5 +442,6 @@ def styledexpander(varkey):
 
 
 def switch_to_homepage():
-    path = "pages/1_🏠_Home.py"
+    path = st.secrets.pageconfig.page_paths[0]
+    #path = "pages/1_Home🏠_Home.py"
     st.switch_page(page=path)
