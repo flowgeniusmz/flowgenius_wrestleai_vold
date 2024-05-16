@@ -24,3 +24,4 @@ youtube-transcript-api
 moviepy
 youtube_dl
 google-api-python-client
+streamlit-folium

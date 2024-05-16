@@ -162,9 +162,11 @@ def get_component_pagelinksection_styled_popover():
         with link_columns_row1[1]:
             get_component_pagelink_styled_popover(1)
             get_component_pagelink_styled_popover(3)
+            #get_component_pagelink_styled_popover(5)
         with link_columns_row1[2]:
             get_component_pagelink_styled_popover(2)
             get_component_pagelink_styled_popover(4)
+            
 
         
 
@@ -216,8 +218,8 @@ def create_sidebar_nav(varPageNumber: int):
     st.sidebar.page_link(page=get_pageconfig_item(varPageNumber=2, varPageConfigType="paths"), label=get_pageconfig_item(varPageNumber=2, varPageConfigType="subtitles"), disabled=(varPageNumber == 2))
     st.sidebar.page_link(page=get_pageconfig_item(varPageNumber=3, varPageConfigType="paths"), label=get_pageconfig_item(varPageNumber=3, varPageConfigType="subtitles"), disabled=(varPageNumber == 3))
     st.sidebar.page_link(page=get_pageconfig_item(varPageNumber=4, varPageConfigType="paths"), label=get_pageconfig_item(varPageNumber=4, varPageConfigType="subtitles"), disabled=(varPageNumber == 4))
-    #st.sidebar.page_link(page=get_pageconfig_item(varPageNumber=5, varPageConfigType="paths"), label=get_pageconfig_item(varPageNumber=5, varPageConfigType="subtitles"), disabled=(varPageNumber == 5))
-    #st.sidebar.page_link(page=get_pageconfig_item(varPageNumber=6, varPageConfigType="paths"), label=get_pageconfig_item(varPageNumber=6, varPageConfigType="subtitles"), disabled=(varPageNumber == 6))
+    st.sidebar.page_link(page=get_pageconfig_item(varPageNumber=5, varPageConfigType="paths"), label=get_pageconfig_item(varPageNumber=5, varPageConfigType="subtitles"), disabled=(varPageNumber == 5))
+    st.sidebar.page_link(page=get_pageconfig_item(varPageNumber=6, varPageConfigType="paths"), label=get_pageconfig_item(varPageNumber=6, varPageConfigType="subtitles"), disabled=(varPageNumber == 6))
 
 
 def get_blue_header(varText: str):
