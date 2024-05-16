@@ -1,6 +1,6 @@
 import streamlit as st
 from config import pagesetup as ps, sessionstates as ss
-
+from openai import OpenAI
 
 
 # 0. Set page config

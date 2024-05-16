@@ -7,4 +7,6 @@ st.set_page_config(page_title=st.secrets.appconfig.app_name, page_icon=st.secret
 page = 0
 ps.master_page_display_styled_popmenu_pop(varPageNumber=page)
 
-ss.initialize_session_states()
+
+
+st.markdown(st.session_state)

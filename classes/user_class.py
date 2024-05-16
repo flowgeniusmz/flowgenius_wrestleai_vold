@@ -12,8 +12,10 @@ class User():
             self.authenticate_new_user(username, password, firstname, lastname, userrole)
         elif user_type == "existing":
             self.authenticate_existing_user(username, password)
+        self.update_session_state()
 
     def authenticate_new_user(self, username, password, firstname, lastname, userrole):
+        self.thread_metadata= {"username": username, "password": password, "firstname": firstname, "lastname": lastname, "fullname": f"{firstname} {lastname}", "userrole": userrole, "createddate": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
         self.user_data.update({
             'username': username,
             'password': password,
@@ -21,7 +23,7 @@ class User():
             'lastname': lastname,
             'fullname': f"{firstname} {lastname}",
             'user_role': userrole,
-            'thread_id': self.auth_settings['openai_client'].beta.threads.create().id,
+            'thread_id': self.auth_settings['openai_client'].beta.threads.create(metadata=self.thread_metadata).id,
             'vector_store_id': self.auth_settings['openai_client'].beta.vector_stores.create(name=f"WrestleAI - {firstname} {lastname}").id,
             'user_created': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         })
@@ -62,7 +64,28 @@ class User():
         else:
             st.error("Error: User not recognized.")
             
-            
+    def update_session_state(self):
+        self.username = self.user_data['username']
+        self.password = self.user_data['password']
+        self.createddate = self.user_data['user_created']
+        self.thread_id = self.user_data['thread_id']
+        self.vector_store_id = self.user_data['vector_store_id']
+        self.firstname = self.user_data['firstname']
+        self.lastname = self.user_data['lastname']
+        self.fullname = self.user_data['fullname']
+        self.user_role = self.user_data['user_role'] 
+        st.session_state.user.update({
+            'username': self.user_data['username'],
+            'password': self.user_data['password'],
+            'firstname': self.user_data['firstname'],
+            'lastname': self.user_data['lastname'],
+            'fullname': self.user_data['fullname'],
+            'user_role': self.user_data['user_role'],
+            'thread_id': self.user_data['thread_id'],
+            'vector_store_id': self.user_data['vector_store_id'],
+            'user_created': self.user_data['user_created'],
+        })       
+         
 
 class UserFlow():
     def __init__(self):
@@ -130,7 +153,18 @@ class UserFlow():
                         )
 
     def userflow2_userauth_callback(self, user_type, username, password, firstname=None, lastname=None, userrole=None):
-        self.user.initialize_user_authentication(user_type, username, password, firstname, lastname, userrole.lower())
+        if userrole is not None:
+            userrole = userrole.lower()
+        self.user.initialize_user_authentication(user_type, username, password, firstname, lastname, userrole)
         st.session_state.user['userauth_complete'] = True
         st.session_state.user['userflow_complete'] = True
+        st.session_state.user['username'] = self.user.user_data['username']
+        st.session_state.user['password'] = self.user.user_data['password']
+        st.session_state.user['firstname'] = self.user.user_data['firstname']
+        st.session_state.user['lastname'] = self.user.user_data['lastname']
+        st.session_state.user['fullname'] = self.user.user_data['fullname']
+        st.session_state.user['user_role'] = self.user.user_data['user_role']
+        st.session_state.user['thread_id'] = self.user.user_data['thread_id']
+        st.session_state.user['vector_store_id'] = self.user.user_data['vector_store_id']
+        st.session_state.user['created_date'] = self.user.user_data['user_created']
         ps.switch_to_homepage()
