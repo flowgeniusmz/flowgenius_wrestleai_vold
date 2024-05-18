@@ -3,6 +3,17 @@ from config import pagesetup as ps, sessionstates as ss
 from openai import OpenAI
 import time
 
+
+def get_container(key, height: int=100, border: bool=False):
+    styled_container = ps.container_styled2(varKey=f"adfads{key}")
+    with styled_container:
+        styled_container_inner = ps.container_styled3(varKey=f"adsfadsfasda{key}")
+        with styled_container_inner:
+            container = st.container(height=height, border = border)
+            return container
+
+
+
 client = OpenAI(api_key=st.secrets.openai.api_key)
 existing_thread_id = "thread_dfgkQIPEGfBhf8O4lACBAsh1"
 initial_thread_messages = client.beta.threads.messages.list(thread_id=existing_thread_id)
@@ -21,7 +32,7 @@ def get_chat_container(tab_number):
             chat_container = st.container(height=400, border=False)
     return chat_container
 
-chat_tab_names = ["Existing Chat Example", "New Chat Example"]
+chat_tab_names = ["Existing Chat Example", "New Chat Example", "Test"]
 
 chat_tabs = st.tabs(tabs=chat_tab_names)
 with chat_tabs[0]:
@@ -50,4 +61,16 @@ with chat_tabs[0]:
     
 with chat_tabs[1]:
     chat_container2 = get_chat_container(1)
+    
+    
+with chat_tabs[2]:
+    container1 = get_container(key="dafdfdafdadfad", height=200, border=False)
+    with container1:
+        with st.chat_message("assistant"):
+            st.markdown("Yo homie")
+            
+        with st.chat_message("user"):
+            st.markdown("Your a chat")
+    
+    
     
